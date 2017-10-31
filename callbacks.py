@@ -49,13 +49,9 @@ class TelegramNotify(Callback):
         acc = logs.get('loss', "")  
         loss = logs.get('acc', "")
 
-        try:
-            if msg:
-                self.bot.send_message(chat_id=self.chat_id, text=msg)
-            else:
-                self.bot.send_message(
-                    chat_id=self.chat_id,
-                    text="{}: Loss {} Accuracy {}.".format(level, loss, acc)
-                    )
+        try:        
+            text = msg or "{}: Loss {} Accuracy {}".format(level, loss, acc)
+            self.bot.send_message(chat_id=self.chat_id,text=text)        
+        
         except Exception as e:
             pass
