@@ -18,10 +18,9 @@ Notify levels available:
 from kerasplugins import callbacks
 
 notify = { 
-  'on_batch_end':True, 
-  'on_epoch_end':True 
+  'on_batch_end':True,  # sends BATCH END: Loss 0.50 Accuracy: 0.75
+  'on_epoch_end':True   # sends EPOCH END: Loss 0.43 Accuracy: 0.81
 }
-
 
 telegram = callbacks.TelegramNotify(<token>, <chat_id>, msg=msg, notify=notify)
 
