@@ -7,7 +7,7 @@ class TelegramNotify(Callback):
     def __init__(self, token, chat_id, msg=None, notify={}):
         self.bot = telegram.Bot(token=token)
         self.chat_id = chat_id
-        self.init_msg = msg if not None else "model starting to train"
+        self.init_msg = msg or "model starting to train"
 
         self.notify_train_begin = notify.get('on_train_begin', False)
         self.notify_train_end = notify.get('on_train_end', False)
