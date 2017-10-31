@@ -15,7 +15,7 @@ Notify levels available:
 ##### How to use
 
 ```python
-import callbacks
+from kerasplugins import callbacks
 
 notify = { 
   'on_batch_end':True, 
