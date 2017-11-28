@@ -13,6 +13,10 @@ Notify levels available:
 6) on_epoch_end
   
 ##### How to use
+##### Installation
+```
+pip install kerasplugins
+```
 
 ```python
 import callbacks
