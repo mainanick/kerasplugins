@@ -4,11 +4,16 @@ from keras.callbacks import Callback
 
 
 class TelegramNotify(Callback):
-    def __init__(self, token, chat_id, msg=None, notify={}):
+    def __init__(self, token, chat_id, msg=None, notify_event={}):
         self.bot = telegram.Bot(token=token)
         self.chat_id = chat_id
+        
+        # The initial message to be sent when model training begins
         self.init_msg = msg or "model starting to train"
-
+        
+        #Ensure notify_event is a O(1) access_time DS
+        notify = set(notify_event) if isinstance(notify_event, list) else notify_event
+        
         self.notify_train_begin = 'on_train_begin' in notify
         self.notify_train_end = 'on_train_end' in notify
 
