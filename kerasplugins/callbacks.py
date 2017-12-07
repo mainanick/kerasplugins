@@ -9,14 +9,14 @@ class TelegramNotify(Callback):
         self.chat_id = chat_id
         self.init_msg = msg or "model starting to train"
 
-        self.notify_train_begin = notify.get('on_train_begin', False)
-        self.notify_train_end = notify.get('on_train_end', False)
+        self.notify_train_begin = 'on_train_begin' in notify
+        self.notify_train_end = 'on_train_end' in notify
 
-        self.notify_batch_begin = notify.get('on_batch_begin', False)
-        self.notify_batch_end = notify.get('on_batch_end', False)
+        self.notify_batch_begin = 'on_batch_begin' in notify
+        self.notify_batch_end = 'on_batch_end' in notify
 
-        self.notify_epoch_begin = notify.get('on_epoch_begin', False)  
-        self.notify_epoch_end = notify.get('on_epoch_end', False)
+        self.notify_epoch_begin = 'on_epoch_begin' in notify
+        self.notify_epoch_end = 'on_epoch_end' in notify
 
         super()
 
