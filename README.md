@@ -33,9 +33,16 @@ telegram = callbacks.TelegramNotify(<token>, <chat_id>, msg=msg, notify=notify)
 # channel is "#general" by default
 slack = callbacks.SlackNotify(<slack_token>, <channel>, msg=msg, notify=notify)
 
-# headers is 'Content-Type': 'application/json' by default
+webhook = callbacks.WebhookNotify('https://example.com/ml')
+
+# Optionals:
+#Headers default to "application/json"
 headers = {'Content-Type': 'text/plain'}
-webhook = callbacks.WebhookNotify('https://example.com/ml', headers=headers)
+
+# Added to every payload sent to the webhook
+data = {"auth_token":"cccxxxvvvbbbnnnmmmaaasss"}
+
+webhook = callbacks.WebhookNotify('https://example.com/ml', data=data, headers=headers)
 
 model.fit(X_train, Y_train, validation_data=[X_test, Y_test], batch_size=256, epochs=10,
         callbacks=[telegram, slack, webhook])
