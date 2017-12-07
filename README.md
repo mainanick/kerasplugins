@@ -1,8 +1,11 @@
-# keras-plugins
+# kerasplugins
+
+##### Installation
+```
+pip install kerasplugins
+```
 
 ## Callbacks
-
-### Telegram Callback
 
 Notify levels available:
 1) on_train_begin,
@@ -11,12 +14,7 @@ Notify levels available:
 4) on_batch_end,
 5) on_epoch_begin,
 6) on_epoch_end
-  
-##### How to use
-##### Installation
-```
-pip install kerasplugins
-```
+
 
 ```python
 from kerasplugins import callbacks
@@ -35,7 +33,12 @@ telegram = callbacks.TelegramNotify(<token>, <chat_id>, msg=msg, notify=notify)
 # channel is "#general" by default
 slack = callbacks.SlackNotify(<slack_token>, <channel>, msg=msg, notify=notify)
 
-model.fit(X_train, Y_train, validation_data=[X_test, Y_test], batch_size=256, epochs=10, callbacks=[telegram, slack])
+# headers is 'Content-Type': 'application/json' by default
+headers = {'Content-Type': 'text/plain'}
+webhook = callbacks.WebhookNotify('https://example.com/ml', headers=headers)
+
+model.fit(X_train, Y_train, validation_data=[X_test, Y_test], batch_size=256, epochs=10,
+        callbacks=[telegram, slack, webhook])
 ```
 
 ## Coming Soon
