@@ -2,8 +2,6 @@
 
 ## Callbacks
 
-### Telegram Callback
-
 Notify levels available:
 1) on_train_begin,
 2) on_train_end,
