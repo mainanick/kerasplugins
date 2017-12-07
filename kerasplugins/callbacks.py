@@ -3,6 +3,14 @@ import telegram
 from keras.callbacks import Callback
 
 
+class KerasPluginsException(Exception):
+    """kerasplugins Exceptions"""
+
+ 
+class CallbackException(KerasPluginsException):
+    """Callback Exception"""
+
+ 
 class TelegramNotify(Callback):
     def __init__(self, token, chat_id, msg=None, notify_event={}):
         self.bot = telegram.Bot(token=token)
@@ -10,6 +18,9 @@ class TelegramNotify(Callback):
         
         # The initial message to be sent when model training begins
         self.init_msg = msg or "model starting to train"
+        
+        if not isinstance(notify_event, (list, dict, set)):
+            raise CallbackException("Expected list, dict or set got {}".format(type(notify_event)))
         
         #Ensure notify_event is a O(1) access_time DS
         notify = set(notify_event) if isinstance(notify_event, list) else notify_event
