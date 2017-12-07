@@ -18,6 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
 
+import json
+import warnings
 
 import requests
 import telegram
@@ -46,9 +48,9 @@ class PluginCallbacks(Callback):
 
         self.notify_epoch_begin = 'on_epoch_begin' in notify_event
         self.notify_epoch_end = 'on_epoch_end' in notify_event
-        
+
         super()
-    
+
     def on_train_begin(self, logs={}):
         if self.notify_train_begin:
             self.notify(msg=self.init_msg, level="TRAIN BEGIN")
@@ -72,19 +74,19 @@ class PluginCallbacks(Callback):
 
     def on_epoch_end(self, epoch, logs={}):
         if self.notify_epoch_end:
-            self.notify(logs, level="EPOCH END")            
-    
+            self.notify(logs, level="EPOCH END")
+
     def notify(self):
         raise NotImplementedError
 
 
 class TelegramNotify(PluginCallbacks):
     def __init__(self, token, chat_id, msg=None, notify={}):
-        
+
         self.bot = None
         self.chat_id = chat_id
         self.token = token
-        super().__init__(msg, notify)    
+        super().__init__(msg, notify)
 
     def notify(self, logs={}, msg=None, level=""):
         if self.bot is None:
@@ -98,17 +100,18 @@ class TelegramNotify(PluginCallbacks):
             self.bot.send_message(chat_id=self.chat_id, text=text)
 
         except Exception as e:
-            pass
+            warnings.warn(
+                'Failed Notify Telegram Channel. Error {}'.format(str(e)))
 
 
 class SlackNotify(PluginCallbacks):
-    def __init__(self, slack_token, channel="#general", msg=None, notify={}):        
+    def __init__(self, slack_token, channel="#general", msg=None, notify={}):
         self.channel = channel
         self.token = slack_token
         self.slack = None
-        
+
         super().__init__(msg, notify)
-        
+
     def notify(self, logs={}, msg=None, level=""):
         if self.slack is None:
             self.slack = slacker.Slacker(self.token)
@@ -121,5 +124,21 @@ class SlackNotify(PluginCallbacks):
             self.slack.chat.post_message(self.channel, text)
 
         except Exception as e:
-            pass    
-    
+            warnings.warn(
+                'Failed Notify Slack Channel. Error {}'.format(str(e)))
+
+
+class WebhookNotify(PluginCallbacks):
+    def __init__(self, url, headers=None, msg=None, notify={}):
+        self.url = url
+        self.headers = headers or {'Content-Type': 'application/json'}
+
+        super().__init__(msg, notify)
+
+    def notify(self, logs={}, msg=None, level=""):
+        data = {k: v for k, v in logs.items()}
+
+        try:
+            requests.post(url, data=json.dumps(data), headers=self.headers)
+        except requests.exceptions.RequestException as e:
+            warnings.warn('Failed to reach server error {}'.format(str(e)))
