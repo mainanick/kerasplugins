@@ -27,13 +27,13 @@ setup(
     license='MIT',
 
     classifiers=[
-        
+
         'Development Status :: 2 - Pre-Alpha',
 
         'Intended Audience :: Developers',
-        
+
         'Natural Language :: English',
-        
+
         'Topic :: Software Development :: Libraries :: Python Modules',
 
         'License :: OSI Approved :: MIT License',

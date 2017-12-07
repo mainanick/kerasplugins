@@ -17,3 +17,35 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE
+
+import unittest
+
+from kerasplugins import callbacks
+from kerasplugins import exceptions
+
+
+class TestKerasPlugins(unittest.TestCase):
+
+    def test_cannot_init_with_invalid_event_type(self):
+        with self.assertRaises(exceptions.CallbackException):
+            telegram = callbacks.TelegramNotify(0, 0, msg="msg", notify="")
+
+    def tests_event_can_be_notified(self):
+        notify = {
+            'on_batch_begin',
+            # 'on_batch_end',
+            'on_epoch_begin',
+            'on_epoch_end',
+            'on_train_begin',
+            # 'on_train_end'
+        }
+
+        telegram = callbacks.TelegramNotify(0, 0, msg="msg", notify=notify)
+
+        self.assertTrue(telegram.notify_train_begin)
+        self.assertTrue(telegram.notify_batch_begin)
+        self.assertTrue(telegram.notify_epoch_begin)
+        self.assertTrue(telegram.notify_epoch_end)
+
+        self.assertFalse(telegram.notify_train_end)
+        self.assertFalse(telegram.notify_batch_end)
