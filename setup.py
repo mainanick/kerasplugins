@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='kerasplugins',
 
-    version='0.1.4',
+    version='0.1.5',
 
     description='Keras Plugins',
     long_description=long_description,
