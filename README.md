@@ -1,4 +1,9 @@
-# keras-plugins
+# kerasplugins
+
+##### Installation
+```
+pip install kerasplugins
+```
 
 ## Callbacks
 
@@ -9,12 +14,7 @@ Notify levels available:
 4) on_batch_end,
 5) on_epoch_begin,
 6) on_epoch_end
-  
-##### How to use
-##### Installation
-```
-pip install kerasplugins
-```
+
 
 ```python
 from kerasplugins import callbacks
