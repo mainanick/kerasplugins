@@ -49,3 +49,4 @@ class TestKerasPlugins(unittest.TestCase):
 
         self.assertFalse(telegram.notify_train_end)
         self.assertFalse(telegram.notify_batch_end)
+

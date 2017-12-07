@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
     name='kerasplugins',
 
-    version='0.1.2',
+    version='0.1.3',
 
     description='Keras Plugins',
     long_description=long_description,
@@ -54,5 +54,10 @@ setup(
 
     packages=find_packages(exclude=['docs', 'tests']),
 
-    install_requires=['keras'],
+    install_requires=[
+        'keras',
+        'requests',
+        'telegram',
+        'slacker'
+    ],
 )
