@@ -1,4 +1,4 @@
-# kerasplugins
+# kerasplugins 🤓
 [![PyPI](https://img.shields.io/pypi/v/kerasplugins.svg)]()
 [![PyPI](https://img.shields.io/pypi/l/kerasplugins.svg)]()
 
