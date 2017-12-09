@@ -9,6 +9,8 @@ pip install kerasplugins
 
 ## Callbacks
 ### Notification Callback 📮 💬
+Get notified as your Keras neural network models trains remotely
+
 Send log messages to your telegram and slack channels. *more coming soon*
 
 Notify levels available:
