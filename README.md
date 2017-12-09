@@ -8,6 +8,8 @@ pip install kerasplugins
 ```
 
 ## Callbacks
+### Notification Callback 📮 💬
+Send log messages to your telegram and slack channels. *more coming soon*
 
 Notify levels available:
 1) on_train_begin,
