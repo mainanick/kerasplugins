@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/l/kerasplugins.svg)]()
 
 ##### Installation
+
 ```
 pip install kerasplugins
 ```
