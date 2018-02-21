@@ -36,8 +36,7 @@ class PluginCallbacks(Callback):
         if not isinstance(notify, (list, dict, set)):
             raise exceptions.CallbackException(
                 "Expected list, dict or set got {}".format(type(notify)))
-
-        # Ensure notify_event is a O(1) access_time DS
+        
         notify_event = set(notify) if isinstance(notify, list) else notify
 
         self.notify_train_begin = 'on_train_begin' in notify_event
