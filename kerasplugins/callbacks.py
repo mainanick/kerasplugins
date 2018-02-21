@@ -128,8 +128,9 @@ class SlackNotify(PluginCallbacks):
 
 
 class WebhookNotify(PluginCallbacks):
-    def __init__(self, url, data=None, headers=None, msg=None, notify={}):
+    def __init__(self, url, data=None, headers=None, msg=None, notify={}, timeout=10):
         self.url = url
+        self.timeout = timeout
         self.headers = headers or {'Content-Type': 'application/json'}
         self.data = data if isinstance(data, dict) else {}
 
@@ -141,6 +142,6 @@ class WebhookNotify(PluginCallbacks):
         payload = {payload, **self.data}
 
         try:
-            requests.post(url, data=json.dumps(payload), headers=self.headers)
+            requests.post(url, data=json.dumps(payload), headers=self.headers, timeout=self.timeout)
         except requests.exceptions.RequestException as e:
             warnings.warn('Failed to reach server error {}'.format(str(e)))
